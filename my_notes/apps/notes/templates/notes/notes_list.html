@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-    Hello World
+<br>
+    <form method = "POST" action="{% url "notes:notes_list" %}"> {% csrf_token %}
+        <input type = "text" name="create_note_from_form" placeholder="Создать заметку">
+        <button type="submit">Создать</button>
+    </form>
+
+    <br>
+    {% for note in notes %}
+        {# Автор заметки: {{ note.author }} #}
+        <br>
+        Заметка: {{ note.text }}
+    {% endfor %}
+<br>
+    {{ var.create_note_from_form }}
 {% endblock %}
