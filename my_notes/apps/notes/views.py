@@ -1,15 +1,24 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Note
 from .forms import NoteForm
-from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 
 # Create your views here.
 def notes_list (request):
-    var = request.POST
     notes = Note.objects.all()
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            new_note = form.save(commit=False)
+            new_note.author = request.user
+            new_note.save()
+            return redirect("notes:notes_list")
+    else:
+        form = NoteForm()
+
     context = {
-        "var" : var,
-        'notes': notes
+        'notes': notes,
+        'form': form,
     }
     return render (request, "notes/notes_list.html", context)
 

@@ -3,7 +3,7 @@
 {% block content %}
 <br>
     <form method = "POST" action="{% url "notes:notes_list" %}"> {% csrf_token %}
-        <input type = "text" name="create_note_from_form" placeholder="Создать заметку">
+        {{ form.as_p }}
         <button type="submit">Создать</button>
     </form>
 
@@ -14,5 +14,5 @@
         Заметка: {{ note.text }}
     {% endfor %}
 <br>
-    {{ var.create_note_from_form }}
+
 {% endblock %}
