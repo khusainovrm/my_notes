@@ -2,17 +2,35 @@
 
 {% block content %}
 <br>
+<div class="row justify-content-center">
+    <h5>Поставьте цель: </h5>
+</div>
+<div class="row justify-content-center">
     <form method = "POST" action="{% url "notes:notes_list" %}"> {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.text }}
         <button type="submit">Создать</button>
     </form>
+</div>
 
-    <br>
+<br>
+<div class="list-group">
     {% for note in notes %}
         {# Автор заметки: {{ note.author }} #}
-        <br>
-        Заметка: {{ note.text }}
+    <div class="row justify-content-center">
+        <div class="col-6">
+        <a class="list-group-item list-group-item-action">{{ note.text }} , ID = {{ note.id }}</a>
+        </div>
+        <div class="col-2">
+           <button type="button" class="btn btn-primary btn-sm">Задачи</button>
+            <a href="{% url "notes:note_delete" note.id %}">
+                <button type="button" class="btn btn-secondary btn-sm" name="{{ note.id }}" action="ya.ru">
+                   Удалить
+                </button>
+            </a>
+        </div>
+    </div>
     {% endfor %}
+</div>
 <br>
 
 {% endblock %}

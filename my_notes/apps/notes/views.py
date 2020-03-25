@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from .models import Note
 from .forms import NoteForm
-from django.contrib.auth.models import User
+from django.urls import reverse
+
 
 # Create your views here.
 def notes_list (request):
@@ -21,6 +22,23 @@ def notes_list (request):
         'form': form,
     }
     return render (request, "notes/notes_list.html", context)
+
+def notedelete(request, note_id):
+    notedel=Note.objects.filter(id=note_id)
+    notedel.delete()
+    return HttpResponseRedirect(reverse("notes:notes_list"))
+
+
+
+
+
+
+
+
+
+
+
+
 
 def note_all (request):
     form = NoteForm(request.Post)
