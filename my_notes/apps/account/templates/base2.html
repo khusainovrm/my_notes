@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'todo/bootstrap.min.css' %}">
+    <title>Мои заметки</title>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="{% url "notes:notes_list" %}">My Notes</a>
+    </nav>
+</div>
+
+<div class="container">
+    <div id="header">
+        <span class="logo">Bookmarks</span>
+        {% if request.user.is_authenticated %}
+            <div {% if section == "account:dashboard" %}class="selected"{% endif %}>
+            <a href="{% url "account:dashboard" %}">My dashboard</a>
+            </div>
+        {% endif %}
+        <span class="user">
+        {% if request.user.is_authenticated %}
+            Hello {{ request.user }},
+            <a href="{% url "account:logout" %}">Logout</a>
+            {% else %}
+            <a href="{% url "account:login" %}">Log-in</a>
+        {% endif %}
+        </span>
+    </div>
+</div>
+
+<div class="container">
+    {% block content %}
+        replace me
+    {% endblock %}
+</div>
+</body>
+</html>
