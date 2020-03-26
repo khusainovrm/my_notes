@@ -16,7 +16,6 @@ def notes_list (request):
             return redirect("notes:notes_list")
     else:
         form = NoteForm()
-
     context = {
         'notes': notes,
         'form': form,

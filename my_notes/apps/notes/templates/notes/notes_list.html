@@ -8,7 +8,7 @@
 <div class="row justify-content-center">
     <form method = "POST" action="{% url "notes:notes_list" %}"> {% csrf_token %}
         {{ form.text }}
-        <button type="submit">Создать</button>
+        <button type="submit" class="btn btn-success btn-sm">Создать</button>
     </form>
 </div>
 
@@ -17,15 +17,17 @@
     {% for note in notes %}
         {# Автор заметки: {{ note.author }} #}
     <div class="row justify-content-center">
-        <div class="col-6">
-        <a class="list-group-item list-group-item-action">{{ note.text }} , ID = {{ note.id }}</a>
+        <div class="col-5">
+        <a class="list-group-item list-group-item-action">{{ note.text }}</a>
         </div>
-        <div class="col-2">
-           <button type="button" class="btn btn-primary btn-sm">Задачи</button>
+        <div class="col-3">
+           <button type="button" class="btn btn-outline-success">
+               Задачи
+           </button>
             <a href="{% url "notes:note_delete" note.id %}">
-                <button type="button" class="btn btn-secondary btn-sm" name="{{ note.id }}" action="ya.ru">
-                   Удалить
-                </button>
+            <button type="button" class="btn btn-outline-danger" name="{{ note.id }}" >
+               Удалить
+            </button>
             </a>
         </div>
     </div>
